@@ -35,6 +35,10 @@ public class PokedexFragment extends Fragment {
 			public void pokedexCallback (Pokedex pokedex) {
 				// TODO: show Pokemon
 				// Each pokemon is in the Pokemon_Species object.
+				pokedex.getId();
+				pokedex.getPokemon_entries();
+				pokedex.getRegion();
+				pokedex.getVersion_groups();
 			}
 		};
 		RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);
