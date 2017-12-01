@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 
 import com.example.rusili.homework11.R;
 import com.example.rusili.homework11.network.RetrofitFactory;
@@ -50,10 +52,13 @@ public class PokedexFragment extends Fragment {
                 // Each pokemon is in the Pokemon_Species object.
                 List<PokemonEntries> pokemon_species = Arrays.asList(pokedex.getPokemon_entries());
                 PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
                 recyclerView.setAdapter(pokedexAdapter);
+                recyclerView.setLayoutManager(gridLayoutManager);
             }
         };
         RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);
         RetrofitFactory.getInstance().getPokedex(2);
+
     }
 }
