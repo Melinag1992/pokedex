@@ -25,9 +25,9 @@ public class PokedexViewHolder extends RecyclerView.ViewHolder {
     public PokedexViewHolder(View itemView) {
         super(itemView);
 
-        pokename = (TextView) itemView.findViewById(R.id.);
-        pokeID = (TextView) itemView.findViewById(R.id.);
-        pokeimage = (ImageView) itemView.findViewById(R.id.);
+        pokename = (TextView) itemView.findViewById(R.id.poke_image);
+        pokeID = (TextView) itemView.findViewById(R.id.poke_number);
+        pokeimage = (ImageView) itemView.findViewById(R.id.poke_name);
 
     }
 
@@ -35,7 +35,6 @@ public class PokedexViewHolder extends RecyclerView.ViewHolder {
 
         pokename.setText(pokemonEntries.getPokemon_species().getName());
         pokeID.setText(pokemonEntries.getEntry_number());
-        //glide
 
     }
 
