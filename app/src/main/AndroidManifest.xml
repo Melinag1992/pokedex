@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".detailscreen.view.PokemonDetailActivity"/>
+<<<<<<< HEAD
         <activity android:name=".pokedexActivity.view.MainActivity">
+=======
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+>>>>>>> 98d4bb8646208eb2705a7ba1068e4104cd6f8e54
         </activity>
     </application>
 

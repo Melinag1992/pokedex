@@ -39,8 +39,6 @@ public class PokedexFragment extends Fragment {
 
         getPokedexList();
 
-
-
         return view;
     }
 
@@ -51,7 +49,11 @@ public class PokedexFragment extends Fragment {
                 // TODO: show Pokemon
                 // Each pokemon is in the Pokemon_Species object.
                 List<PokemonEntries> pokemon_species = Arrays.asList(pokedex.getPokemon_entries());
+<<<<<<< HEAD
                 PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species);
+=======
+                PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species,getContext());
+>>>>>>> 98d4bb8646208eb2705a7ba1068e4104cd6f8e54
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
                 recyclerView.setAdapter(pokedexAdapter);
                 recyclerView.setLayoutManager(gridLayoutManager);
