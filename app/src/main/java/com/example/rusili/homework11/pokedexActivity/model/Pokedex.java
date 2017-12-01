@@ -3,6 +3,9 @@ package com.example.rusili.homework11.pokedexActivity.model;
 import com.example.rusili.homework11.pokedexActivity.model.objects.PokemonEntries;
 import com.example.rusili.homework11.pokedexActivity.model.objects.Region;
 import com.example.rusili.homework11.pokedexActivity.model.objects.VersionGroups;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by rusi.li on 11/22/17.
@@ -15,7 +18,6 @@ public class Pokedex {
     private PokemonEntries[] pokemon_entries;
 
     //TODO: Create getters
-
 
     public int getId() {
         return id;
@@ -32,4 +34,7 @@ public class Pokedex {
     public PokemonEntries[] getPokemon_entries() {
         return pokemon_entries;
     }
+
+
+
 }
