@@ -18,10 +18,13 @@ public class MainActivity  extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         PokedexFragment pokedexFragment = new PokedexFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, pokedexFragment);
+        fragmentTransaction.commit();
 
     }
 }

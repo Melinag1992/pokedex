@@ -16,6 +16,7 @@ import com.example.rusili.homework11.network.RetrofitFactory;
 import com.example.rusili.homework11.pokedexActivity.model.Pokedex;
 import com.example.rusili.homework11.pokedexActivity.model.objects.PokemonEntries;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,15 +27,22 @@ import java.util.List;
 public class PokedexFragment extends Fragment {
     private RetrofitFactory.PokedexNetworkListener pokedexNetworkListener;
     private RecyclerView recyclerView;
+    private View view;
+    private List<PokemonEntries> pokemon_species = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pokedex , container , false);
+
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.pokedex_recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         getPokedexList();
 
@@ -47,11 +55,12 @@ public class PokedexFragment extends Fragment {
             public void pokedexCallback(Pokedex pokedex) {
                 // TODO: show Pokemon
                 // Each pokemon is in the Pokemon_Species object.
-                List<PokemonEntries> pokemon_species = Arrays.asList(pokedex.getPokemon_entries());
-                PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species,getContext());
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
-                recyclerView.setAdapter(pokedexAdapter);
-                recyclerView.setLayoutManager(gridLayoutManager);
+                for(int i = 0; i <= 150 ; i++ ){
+                    pokemon_species.add(pokedex.getPokemon_entries()[i]);
+                }
+
+                recyclerView.setAdapter(new PokedexAdapter(pokemon_species));
+
             }
         };
         RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);

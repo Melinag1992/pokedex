@@ -20,11 +20,9 @@ import java.util.List;
 public class PokedexAdapter extends RecyclerView.Adapter<PokedexViewHolder> {
 
     private List<PokemonEntries> pokeList;
-    private Context context;
 
-    public PokedexAdapter(List<PokemonEntries> pokeList, Context context) {
+    public PokedexAdapter(List<PokemonEntries> pokeList) {
         this.pokeList = pokeList;
-        this.context = context;
     }
 
     @Override
@@ -37,9 +35,9 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexViewHolder> {
     public void onBindViewHolder(PokedexViewHolder holder, int position) {
         PokemonEntries pokemons = pokeList.get(position);
         holder.bind(pokemons);
-        Glide.with(context)
-                .load(pokemons.getPokemon_species().getUrl())
-                .into(holder.pokeimage);
+//        Glide.with(context)
+//                .load(pokemons.getPokemon_species().getUrl())
+//                .into(holder.pokeimage);
     }
 
     @Override
