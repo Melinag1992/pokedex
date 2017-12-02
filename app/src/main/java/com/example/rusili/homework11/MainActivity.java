@@ -17,14 +17,17 @@ public class MainActivity  extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
 
-        PokedexFragment pokedexFragment = new PokedexFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, pokedexFragment);
-        fragmentTransaction.commit();
+
+        getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.main_container, new PokedexFragment())
+        .commit();
+
 
     }
 }
