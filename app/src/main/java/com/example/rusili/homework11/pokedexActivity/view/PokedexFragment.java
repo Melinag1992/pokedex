@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 
 import com.example.rusili.homework11.R;
 import com.example.rusili.homework11.network.RetrofitFactory;
@@ -26,6 +27,8 @@ import java.util.List;
 public class PokedexFragment extends Fragment {
     private RetrofitFactory.PokedexNetworkListener pokedexNetworkListener;
     private RecyclerView recyclerView;
+
+
 
     @Nullable
     @Override
@@ -48,7 +51,9 @@ public class PokedexFragment extends Fragment {
                 // TODO: show Pokemon
                 // Each pokemon is in the Pokemon_Species object.
                 List<PokemonEntries> pokemon_species = Arrays.asList(pokedex.getPokemon_entries());
+
                 PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species,getContext());
+
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
                 recyclerView.setAdapter(pokedexAdapter);
                 recyclerView.setLayoutManager(gridLayoutManager);
@@ -56,5 +61,6 @@ public class PokedexFragment extends Fragment {
         };
         RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);
         RetrofitFactory.getInstance().getPokedex(2);
+
     }
 }
