@@ -83,6 +83,7 @@ public class RetrofitFactory {
 
 					if (pokemonNetworkListener != null) {
 						pokemonNetworkListener.pokemonCallback(response.body());
+
 					}
 				}
 			}
