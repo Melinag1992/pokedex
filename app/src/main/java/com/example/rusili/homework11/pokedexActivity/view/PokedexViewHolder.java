@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,13 +25,15 @@ import static android.support.v4.content.ContextCompat.startActivity;
  * Created by c4q on 12/1/17.
  */
 
-public class PokedexViewHolder extends RecyclerView.ViewHolder {
+public class PokedexViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private Context context;
 
 
-    ImageView pokeimage;
-    TextView pokename;
-    TextView pokeID;
+    private  ImageView pokeimage;
+    private TextView pokename;
+    private TextView pokeID;
+    private Button pokestats;
+
 
     public PokedexViewHolder(final View itemView) {
         super(itemView);
@@ -40,31 +43,35 @@ public class PokedexViewHolder extends RecyclerView.ViewHolder {
         pokename = (TextView) itemView.findViewById(R.id.poke_name);
         pokeID = (TextView) itemView.findViewById(R.id.poke_number);
         ImageView pokeImage = pokeimage = (ImageView) itemView.findViewById(R.id.poke_image);
-        pokeimage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, PokemonDetailActivity.class);
-                context.startActivity(i);
-            }
-        });
+        pokestats = (Button)  itemView.findViewById(R.id.poke_stat);
+        pokestats.setOnClickListener(this);
+
 
     }
 
-    public void bind(PokemonEntries pokemonEntries) {
+
+public void bind(PokemonEntries pokemonEntries) {
 
         pokename.setText(pokemonEntries.getPokemon_species().getName());
         pokeID.setText(String.valueOf(pokemonEntries.getEntry_number()));
         String urlPt1 = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-        String urlPt2 = ".png";
+        String urlPt2 = "png";
         String url = urlPt1 + pokemonEntries.getEntry_number() + urlPt2;
+
+
         Glide.with(context)
                 .load(url)
                 .placeholder(R.mipmap.ic_launcher)
-                .override(125, 125)
+                .override(200, 125)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(pokeimage);
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent i = new Intent(context, PokemonDetailActivity.class);
+        context.startActivity(i);
+    }
 }
 
 

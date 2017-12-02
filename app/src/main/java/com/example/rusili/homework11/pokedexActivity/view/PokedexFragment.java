@@ -54,7 +54,7 @@ public class PokedexFragment extends Fragment {
 
                 PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species,getContext());
 
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4);
                 recyclerView.setAdapter(pokedexAdapter);
                 recyclerView.setLayoutManager(gridLayoutManager);
             }
