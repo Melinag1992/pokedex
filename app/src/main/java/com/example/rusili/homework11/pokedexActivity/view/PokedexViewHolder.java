@@ -71,6 +71,7 @@ public void bind(PokemonEntries pokemonEntries) {
     public void onClick(View view) {
         Intent i = new Intent(context, PokemonDetailActivity.class);
         context.startActivity(i);
+
     }
 }
 

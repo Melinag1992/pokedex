@@ -25,11 +25,10 @@ public class PokemonDetailActivity extends AppCompatActivity{
 	public void onCreate (@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pokemon_details_itemview);
-		initialize();
-
 		poke_stats = (TextView) findViewById(R.id.poke_stat_textview);
 		pokemon_type = (TextView) findViewById(R.id.poke_type_textview);
 		pokemon_img = (ImageView) findViewById(R.id.poke_images_sprites);
+		initialize();
 	}
 
 	private void initialize () {
@@ -42,7 +41,7 @@ public class PokemonDetailActivity extends AppCompatActivity{
 			public void pokemonCallback (Pokemon pokemon) {
 				//TODO: Display pokemon data
 				//Hint: Learn how to use Glide to display an image.
-				pokemon.getStats().toString();
+				poke_stats.setText(pokemon.getStats().toString());
 				pokemon_type.setText(pokemon.getTypes().toString());
 //
 
