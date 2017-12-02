@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="4dp"
     >
 
 
@@ -9,7 +10,6 @@
         android:id="@+id/poke_cardview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="70dp"
 
         >
 
@@ -47,8 +47,9 @@
         <Button
             android:id="@+id/poke_stat"
             android:text="Stats"
+            android:textColor="#fff"
             android:textSize="12sp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/shape"
             android:layout_width="match_parent"
             android:layout_height="30dp" />
     </LinearLayout>
