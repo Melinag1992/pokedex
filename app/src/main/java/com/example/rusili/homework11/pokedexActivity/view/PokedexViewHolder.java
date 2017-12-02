@@ -55,7 +55,7 @@ public void bind(PokemonEntries pokemonEntries) {
         pokename.setText(pokemonEntries.getPokemon_species().getName());
         pokeID.setText(String.valueOf(pokemonEntries.getEntry_number()));
         String urlPt1 = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
-        String urlPt2 = "png";
+        String urlPt2 = ".png";
         String url = urlPt1 + pokemonEntries.getEntry_number() + urlPt2;
 
 
