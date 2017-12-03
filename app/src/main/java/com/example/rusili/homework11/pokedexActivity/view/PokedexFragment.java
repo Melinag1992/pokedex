@@ -1,8 +1,12 @@
 package com.example.rusili.homework11.pokedexActivity.view;
 
+import android.app.ActionBar;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+
 
 import com.example.rusili.homework11.R;
 import com.example.rusili.homework11.network.RetrofitFactory;
@@ -27,22 +32,63 @@ import java.util.List;
 public class PokedexFragment extends Fragment {
     private RetrofitFactory.PokedexNetworkListener pokedexNetworkListener;
     private RecyclerView recyclerView;
+    private FloatingActionButton fab;
+
 
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pokedex , container , false);
+        View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.pokedex_recyclerView);
-
+        recyclerView = view.findViewById(R.id.pokedex_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        fab = view.findViewById(R.id.fab);
+        setFABbutton();
+
+
 
         getPokedexList();
 
         return view;
+
+
+
     }
+
+
+    public void setFABbutton() {
+
+        fab.setVisibility(View.GONE);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) {
+                    fab.setVisibility(View.VISIBLE);
+                }
+                if (dy <= 0) {
+
+                    if (true)
+                        fab.setVisibility(View.GONE);
+
+                }
+            }
+
+        });
+    }
+
 
     private void getPokedexList() {
         pokedexNetworkListener = new RetrofitFactory.PokedexNetworkListener() {
@@ -52,9 +98,9 @@ public class PokedexFragment extends Fragment {
                 // Each pokemon is in the Pokemon_Species object.
                 List<PokemonEntries> pokemon_species = Arrays.asList(pokedex.getPokemon_entries());
 
-                PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species,getContext());
+                PokedexAdapter pokedexAdapter = new PokedexAdapter(pokemon_species, getContext());
 
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
                 recyclerView.setAdapter(pokedexAdapter);
                 recyclerView.setLayoutManager(gridLayoutManager);
             }
