@@ -1,12 +1,14 @@
 package com.example.rusili.homework11.pokedexActivity.view;
 
 import android.app.ActionBar;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,8 +37,6 @@ public class PokedexFragment extends Fragment {
     private FloatingActionButton fab;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,8 +47,7 @@ public class PokedexFragment extends Fragment {
 
 
         fab = view.findViewById(R.id.fab);
-        setFABbutton();
-
+        setFabButton();
 
 
         getPokedexList();
@@ -56,11 +55,10 @@ public class PokedexFragment extends Fragment {
         return view;
 
 
-
     }
 
 
-    public void setFABbutton() {
+    public void setFabButton() {
 
         fab.setVisibility(View.GONE);
 
@@ -100,13 +98,29 @@ public class PokedexFragment extends Fragment {
 
                 PokedexAdapter pokedexAdapter = new PokedexAdapter(pokemon_species, getContext());
 
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
-                recyclerView.setAdapter(pokedexAdapter);
-                recyclerView.setLayoutManager(gridLayoutManager);
-            }
-        };
-        RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);
-        RetrofitFactory.getInstance().getPokedex(2);
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 6);
+                    recyclerView.setAdapter(pokedexAdapter);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                } else {
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
+                    recyclerView.setAdapter(pokedexAdapter);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                }
+    }
+
+    @Override
+    public void onNetworkError(Throwable t) {
+        Snackbar.make(recyclerView.findViewById(android.R.id.content),
+                t.getMessage(),
+                Snackbar.LENGTH_LONG).show();
 
     }
-}
+};
+
+
+        RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);
+                RetrofitFactory.getInstance().getPokedex(2);
+
+                }
+                }

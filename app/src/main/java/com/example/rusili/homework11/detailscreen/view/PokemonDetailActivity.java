@@ -1,11 +1,14 @@
 package com.example.rusili.homework11.detailscreen.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.telecom.Call;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,17 +36,19 @@ public class PokemonDetailActivity extends AppCompatActivity {
     private TextView string_textview;
     private TextView poke_stats;
     private String poke_name;
+    private TextView nameString;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon_details_itemview);
-        poke_stats = (TextView) findViewById(R.id.poke_stat_textview);
-        pokemon_type = (TextView) findViewById(R.id.poke_type_textview);
+        poke_stats =  findViewById(R.id.poke_stat_textview);
+        pokemon_type =  findViewById(R.id.poke_type_textview);
         string_textview = findViewById(R.id.type_string);
-        pokemon_img = (ImageView) findViewById(R.id.poke_images_sprites);
-        //initialize();
+        pokemon_img =  findViewById(R.id.poke_images_sprites);
+        nameString = findViewById(R.id.name_string);
+
         poke_name = getIntent().getStringExtra("Pokename");
         context = getApplicationContext();
         getPokemonDetails();
@@ -73,6 +78,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
                     types += typesArray[i].getType().getName()+" ";
                 }
 
+                nameString.setText(getIntent().getStringExtra("Pokename"));
                 Glide.with(context)
                         .load(pokemon.getSprites().getFront_default())
                         .placeholder(R.mipmap.ic_launcher)
@@ -83,7 +89,21 @@ public class PokemonDetailActivity extends AppCompatActivity {
                 pokemon_type.setText(value);
                 poke_stats.setText(types);
             }
+
+            @Override
+            public void onNetworkError(Throwable t){
+                Snackbar.make(findViewById(android.R.id.content),
+                        t.getMessage()
+                        ,Snackbar.LENGTH_LONG).show();
+            }
+
+
         };
+
+
+
+
+
         RetrofitFactory.getInstance().setPokemonNetworkListener(pokemonNetworkListener);
         RetrofitFactory.getInstance().getPokemon(poke_name);
 
