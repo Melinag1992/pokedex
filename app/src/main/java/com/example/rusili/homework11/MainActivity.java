@@ -13,7 +13,7 @@ import com.example.rusili.homework11.pokedexActivity.view.PokedexFragment;
  * Created by melina.gonzalez on 12/1/17.
  */
 
-public class MainActivity  extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +22,10 @@ public class MainActivity  extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
 
-
         getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.main_container, new PokedexFragment())
-        .commit();
+                .beginTransaction()
+                .replace(R.id.main_container, new PokedexFragment())
+                .commit();
 
 
     }

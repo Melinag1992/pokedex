@@ -29,11 +29,10 @@ public class PokedexFragment extends Fragment {
     private RecyclerView recyclerView;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pokedex , container , false);
+        View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.pokedex_recyclerView);
 
@@ -52,11 +51,12 @@ public class PokedexFragment extends Fragment {
                 // Each pokemon is in the Pokemon_Species object.
                 List<PokemonEntries> pokemon_species = Arrays.asList(pokedex.getPokemon_entries());
 
-                PokedexAdapter pokedexAdapter  = new PokedexAdapter(pokemon_species,getContext());
+                PokedexAdapter pokedexAdapter = new PokedexAdapter(pokemon_species, getContext());
 
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4);
-                recyclerView.setAdapter(pokedexAdapter);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
                 recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(pokedexAdapter);
+
             }
         };
         RetrofitFactory.getInstance().setPokedexListener(pokedexNetworkListener);
