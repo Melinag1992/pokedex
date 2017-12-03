@@ -25,11 +25,11 @@ import static android.support.v4.content.ContextCompat.startActivity;
  * Created by c4q on 12/1/17.
  */
 
-public class PokedexViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class PokedexViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private Context context;
 
 
-    private  ImageView pokeimage;
+    private ImageView pokeimage;
     private TextView pokename;
     private TextView pokeID;
     private Button pokestats;
@@ -43,14 +43,13 @@ public class PokedexViewHolder extends RecyclerView.ViewHolder implements View.O
         pokename = (TextView) itemView.findViewById(R.id.poke_name);
         pokeID = (TextView) itemView.findViewById(R.id.poke_number);
         ImageView pokeImage = pokeimage = (ImageView) itemView.findViewById(R.id.poke_image);
-        pokestats = (Button)  itemView.findViewById(R.id.poke_stat);
+        pokestats = (Button) itemView.findViewById(R.id.poke_stat);
         pokestats.setOnClickListener(this);
-
 
     }
 
 
-public void bind(PokemonEntries pokemonEntries) {
+    public void bind(PokemonEntries pokemonEntries) {
 
         pokename.setText(pokemonEntries.getPokemon_species().getName());
         pokeID.setText(String.valueOf(pokemonEntries.getEntry_number()));
@@ -70,8 +69,9 @@ public void bind(PokemonEntries pokemonEntries) {
     @Override
     public void onClick(View view) {
         Intent i = new Intent(context, PokemonDetailActivity.class);
+        String sendName = pokename.getText().toString();
+        i.putExtra("Pokename" , sendName);
         context.startActivity(i);
-
     }
 }
 
