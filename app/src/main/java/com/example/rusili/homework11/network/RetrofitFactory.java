@@ -97,9 +97,11 @@ public class RetrofitFactory {
 
 	public interface PokedexNetworkListener {
 		void pokedexCallback (Pokedex pokedex);
+		void onNetworkError(Throwable t);
 	}
 
 	public interface PokemonNetworkListener {
 		void pokemonCallback (Pokemon pokemon);
+		void onNetworkError(Throwable t);
 	}
 }
