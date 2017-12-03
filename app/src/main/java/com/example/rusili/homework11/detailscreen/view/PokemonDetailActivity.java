@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.telecom.Call;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,51 +15,75 @@ import com.example.rusili.homework11.R;
 import com.example.rusili.homework11.detailscreen.api.PokemonApi;
 import com.example.rusili.homework11.detailscreen.model.Pokemon;
 import com.example.rusili.homework11.detailscreen.model.objects.Sprites;
+import com.example.rusili.homework11.detailscreen.model.objects.Stat;
+import com.example.rusili.homework11.detailscreen.model.objects.Stats;
+import com.example.rusili.homework11.detailscreen.model.objects.Types;
 import com.example.rusili.homework11.network.RetrofitFactory;
 import com.example.rusili.homework11.pokedexActivity.api.PokedexApi;
 import com.example.rusili.homework11.pokedexActivity.model.objects.PokemonEntries;
 
-public class PokemonDetailActivity extends AppCompatActivity{
-	private RetrofitFactory.PokemonNetworkListener pokemonNetworkListener;
-	private Context context ;
-	private TextView pokemon_type;
-	private ImageView pokemon_img;
-	private TextView poke_stats;
-	@Override
-	public void onCreate (@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+import java.util.Arrays;
+import java.util.List;
 
-		setContentView(R.layout.pokemon_details_itemview);
-		poke_stats =  findViewById(R.id.poke_stat_textview);
-		pokemon_type =  findViewById(R.id.poke_type_textview);
-		pokemon_img = findViewById(R.id.poke_images_sprites);
-		initialize();
-	}
+public class PokemonDetailActivity extends AppCompatActivity {
+    private RetrofitFactory.PokemonNetworkListener pokemonNetworkListener;
+    private Context context;
+    private TextView pokemon_type;
+    private ImageView pokemon_img;
+    private TextView poke_stats;
+    private String poke_name;
 
-	private void initialize () {
-		getPokemonDetails();
-	}
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pokemon_details_itemview);
+        poke_stats = (TextView) findViewById(R.id.poke_stat_textview);
+        pokemon_type = (TextView) findViewById(R.id.poke_type_textview);
+        pokemon_img = (ImageView) findViewById(R.id.poke_images_sprites);
+        //initialize();
+        poke_name = getIntent().getStringExtra("Pokename");
+        context = getApplicationContext();
+        getPokemonDetails();
+    }
 
-	private void getPokemonDetails () {
-		pokemonNetworkListener = new RetrofitFactory.PokemonNetworkListener() {
-			@Override
-			public void pokemonCallback (Pokemon pokemon) {
-				//TODO: Display pokemon data
-				//Hint: Learn how to use Glide to display an image.
-				poke_stats.setText(pokemon.getStats().toString());
-				pokemon_type.setText(pokemon.getTypes().toString());
-				Glide.with(context)
-						.load(pokemon.getSprites().getFront_default())
-						.placeholder(R.mipmap.ic_launcher)
-						.override(200, 125)
-						.diskCacheStrategy(DiskCacheStrategy.ALL)
-						.into(pokemon_img);
-//
+    private void initialize() {
 
-			}
-		};
-		RetrofitFactory.getInstance().setPokemonNetworkListener(pokemonNetworkListener);
-//		RetrofitFactory.getInstance().getPokemon();
-	}
+    }
+
+    private void getPokemonDetails() {
+        pokemonNetworkListener = new RetrofitFactory.PokemonNetworkListener() {
+
+            @Override
+            public void pokemonCallback(Pokemon pokemon) {
+                //TODO: Display pokemon data
+                //Hint: Learn how to use Glide to display an image.
+                Stats[] statsArray = pokemon.getStats();
+                Types[] typesArray = pokemon.getTypes();
+
+
+                String value = "";
+                for (int i = 0; i < statsArray.length; i++)
+                    value += statsArray[i].getStat().getName() + ": " + Integer.toString(statsArray[i].getBase_stat()) + "\n";
+
+                String types = "";
+                for (int i = 0; i < typesArray.length ; i++){
+                    types += typesArray[i].getType().getName()+" ";
+                }
+
+                Glide.with(context)
+                        .load(pokemon.getSprites().getFront_default())
+                        .placeholder(R.mipmap.ic_launcher)
+                        .override(400, 400)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(pokemon_img);
+
+                pokemon_type.setText(value);
+                poke_stats.setText(types);
+            }
+        };
+        RetrofitFactory.getInstance().setPokemonNetworkListener(pokemonNetworkListener);
+        RetrofitFactory.getInstance().getPokemon(poke_name);
+
+    }
 
 }
