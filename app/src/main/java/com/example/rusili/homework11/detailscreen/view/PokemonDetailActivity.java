@@ -30,8 +30,10 @@ public class PokemonDetailActivity extends AppCompatActivity {
     private Context context;
     private TextView pokemon_type;
     private ImageView pokemon_img;
+    private TextView string_textview;
     private TextView poke_stats;
     private String poke_name;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class PokemonDetailActivity extends AppCompatActivity {
         setContentView(R.layout.pokemon_details_itemview);
         poke_stats = (TextView) findViewById(R.id.poke_stat_textview);
         pokemon_type = (TextView) findViewById(R.id.poke_type_textview);
+        string_textview = findViewById(R.id.type_string);
         pokemon_img = (ImageView) findViewById(R.id.poke_images_sprites);
         //initialize();
         poke_name = getIntent().getStringExtra("Pokename");
